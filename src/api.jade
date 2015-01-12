@@ -1,0 +1,23 @@
+- var cdn = 'http://cdnjs.cloudflare.com/ajax/libs'
+
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title BuildBotics API
+
+    link(rel='stylesheet' href=cdn + '/highlight.js/8.2/styles/github.min.css')
+    link(rel='stylesheet'
+      href=cdn + '/font-awesome/4.2.0/css/font-awesome.min.css')
+
+    link(rel='stylesheet' href='api.css')
+
+  body
+    #toc
+      h2: a(href='#') Buildbotics API
+      != md_toc('src/api.md')
+    .title BuildBotics API
+    #content!= md('src/api.md')
+
+    script(src=cdn + '/jquery/1.11.1/jquery.min.js')
+    script(src='api.js')
