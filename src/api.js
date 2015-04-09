@@ -57,9 +57,14 @@ function update_hash() {
     if (offset < hash_offsets[i].top) {
       if (typeof last != 'undefined' &&
           window.location.hash != ('#' + last)) {
-        var scroll = $('html, body').scrollTop();
-        window.location.hash = last;
-        $('html, body').scrollTop(scroll);
+
+        if (history.replaceState) history.replaceState(null, null, '#' + last);
+        else {
+          var scroll = $('html, body').scrollTop();
+          window.location.hash = last;
+          if (scroll) $('html, body').scrollTop(scroll);
+        }
+
         expand_current();
       }
 
