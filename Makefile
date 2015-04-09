@@ -5,6 +5,8 @@ DIR := $(shell dirname $(lastword $(MAKEFILE_LIST)))
 
 TARGETS := $(patsubst %,http/%,$(TARGETS))
 
+WATCH  := src
+
 NODE_MODS := $(DIR)/node_modules
 STYLUS := $(NODE_MODS)/stylus/bin/stylus
 JADE := $(DIR)/jade.js
@@ -31,6 +33,16 @@ publish:
 
 node_modules:
 	npm install
+
+watch:
+	@clear
+	$(MAKE)
+	@while sleep 1; do \
+	  inotifywait -qr -e modify -e create -e delete \
+		--exclude .*~ --exclude \#.* $(WATCH); \
+	  clear; \
+	  $(MAKE); \
+	done
 
 tidy:
 	rm -f $(shell find . -name \*~)
